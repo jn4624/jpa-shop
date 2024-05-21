@@ -43,7 +43,7 @@ public class OrderItem {
      * 비즈니스 로직 추가
      */
     public void cancel() {
-        getItem().removeStock(count);
+        getItem().addStock(count);
     }
 
     public int getTotalPrice() {
