@@ -61,18 +61,17 @@ public class ItemController {
         return "/items/updateItemForm";
     }
 
+    /**
+     * 가장 좋은 수정 권장 코드
+     *
+     * - 엔티티를 변경할 때는 항상 변경 감지 사용
+     * - 컨트롤러에서 어설프게 엔티티 생성 X
+     * - 서비스 계층에서 영속 상태의 엔티티를 조회하고 엔티티의 데이터를 직접 변경
+     * - 트랜잭션 커밋 시점에 변경 감지가 실행
+     */
     @PostMapping("/{itemId}/edit")
     public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("itemForm") BookForm itemForm) {
-        Book book = new Book();
-        book.setId(itemForm.getId());
-        book.setName(itemForm.getName());
-        book.setPrice(itemForm.getPrice());
-        book.setStockQuantity(itemForm.getStockQuantity());
-        book.setAuthor(itemForm.getAuthor());
-        book.setIsbn(itemForm.getIsbn());
-
-        itemService.saveItem(book);
-
+        itemService.updateItem(itemId, itemForm.getName(), itemForm.getPrice(), itemForm.getStockQuantity());
         return "redirect:/items";
     }
 }
