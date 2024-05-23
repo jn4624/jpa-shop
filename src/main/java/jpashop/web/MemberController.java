@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/members")
@@ -40,5 +42,16 @@ public class MemberController {
         memberService.join(member);
 
         return "redirect:/";
+    }
+
+    /**
+     * 엔티티 객체를 그대로 반환하고 있지만
+     * 실무적으로는 DTO 로 변환하여 화면에 필요한 데이터만 반환하는 것이 이상적
+     */
+    @GetMapping
+    public String list(Model model) {
+        List<Member> members = memberService.findMembers();
+        model.addAttribute("members", members);
+        return "/members/memberList";
     }
 }
