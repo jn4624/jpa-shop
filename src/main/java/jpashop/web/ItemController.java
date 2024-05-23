@@ -1,5 +1,6 @@
 package jpashop.web;
 
+import jpashop.domain.Item;
 import jpashop.domain.item.Book;
 import jpashop.service.ItemService;
 import jpashop.web.form.BookForm;
@@ -9,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -34,5 +37,12 @@ public class ItemController {
         itemService.saveItem(book);
 
         return "redirect:/";
+    }
+
+    @GetMapping
+    public String list(Model model) {
+        List<Item> items = itemService.findItems();
+        model.addAttribute("items", items);
+        return "/items/itemList";
     }
 }
