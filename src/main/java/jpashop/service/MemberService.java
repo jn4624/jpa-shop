@@ -42,7 +42,7 @@ public class MemberService {
     }
 
     public Member findMember(Long memberId) {
-        return memberRepository.findOne(memberId);
+        return memberRepository.findById(memberId).get();
     }
 
     /**
@@ -50,7 +50,7 @@ public class MemberService {
      */
     @Transactional
     public void update(Long id, String name) {
-        Member findMember = memberRepository.findOne(id);
+        Member findMember = memberRepository.findById(id).get();
         findMember.setName(name);
     }
 }

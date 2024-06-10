@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-class MemberRepositoryTest {
+class MemberRepositoryOldTest {
     @Autowired
     MemberRepository memberRepository;
 
@@ -24,7 +24,7 @@ class MemberRepositoryTest {
 
         // when
         memberRepository.save(member);
-        Member findMember = memberRepository.findOne(member.getId());
+        Member findMember = memberRepository.findById(member.getId()).get();
 
         // then
         assertThat(findMember.getId()).isEqualTo(member.getId());
