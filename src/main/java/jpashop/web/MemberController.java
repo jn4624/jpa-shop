@@ -24,13 +24,13 @@ public class MemberController {
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("memberForm", new MemberForm());
-        return "/members/createMemberForm";
+        return "members/createMemberForm";
     }
 
     @PostMapping("/new")
     public String create(@Valid MemberForm memberForm, BindingResult result) {
         if (result.hasErrors()) {
-            return "/members/createMemberForm";
+            return "members/createMemberForm";
         }
 
         Address address = new Address(memberForm.getCity(), memberForm.getStreet(), memberForm.getZipcode());
@@ -52,6 +52,6 @@ public class MemberController {
     public String list(Model model) {
         List<Member> members = memberService.findMembers();
         model.addAttribute("members", members);
-        return "/members/memberList";
+        return "members/memberList";
     }
 }

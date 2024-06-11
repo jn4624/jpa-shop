@@ -20,7 +20,7 @@ public class ItemController {
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("itemForm", new BookForm());
-        return "/items/createItemForm";
+        return "items/createItemForm";
     }
 
     @PostMapping("/new")
@@ -41,7 +41,7 @@ public class ItemController {
     public String list(Model model) {
         List<Item> items = itemService.findItems();
         model.addAttribute("items", items);
-        return "/items/itemList";
+        return "items/itemList";
     }
 
     @GetMapping("/{itemId}/edit")
@@ -58,7 +58,7 @@ public class ItemController {
 
         model.addAttribute("itemForm", bookForm);
 
-        return "/items/updateItemForm";
+        return "items/updateItemForm";
     }
 
     /**
@@ -72,6 +72,6 @@ public class ItemController {
     @PostMapping("/{itemId}/edit")
     public String updateItem(@PathVariable("itemId") Long itemId, @ModelAttribute("itemForm") BookForm itemForm) {
         itemService.updateItem(itemId, itemForm.getName(), itemForm.getPrice(), itemForm.getStockQuantity());
-        return "redirect:/items";
+        return "redirect:items";
     }
 }
